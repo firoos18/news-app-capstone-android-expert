@@ -14,8 +14,9 @@ object DataMapper {
                 uuid = it.uuid,
                 displayName = it.displayName,
                 isFavorite = false,
-                description = it.description,
-                role = "",
+                role = it.role.uuid,
+                fullPortrait = it.fullPortrait,
+                background = it.background,
             )
             agentList.add(agent)
         }
@@ -26,23 +27,19 @@ object DataMapper {
         input.map {
             Agents(
                 uuid = it.uuid,
-                description = it.description,
-                role = Role(displayIcon = "", displayName = it.role, assetPath = "", uuid = "", description = ""),
+                role = it.role,
                 displayName = it.displayName,
-                abilities = emptyList(),
-                voiceLine = VoiceLine(minDuration = 0f, maxDuration = 0f, mediaList = emptyList()),
-                background = "",
-                developerName = "",
-                displayIconSmall = "",
-                fullPortrait = ""
+                background = it.background,
+                fullPortrait = it.fullPortrait
             )
         }
 
     fun mapDomainToEntity(input: Agents) = AgentsEntity(
         uuid = input.uuid,
-        description = input.description,
         displayName = input.displayName,
-        role = input.role.displayName,
+        role = input.role,
+        background = input.background,
+        fullPortrait = input.fullPortrait,
         isFavorite = false,
     )
 }

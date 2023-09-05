@@ -18,18 +18,12 @@ data class AgentsEntity(
     @ColumnInfo(name = "displayName")
     var displayName: String,
 
-    @ColumnInfo(name = "description")
-    var description: String,
-
     @ColumnInfo(name = "isFavorite")
-    var isFavorite : Boolean = false
-)
+    var isFavorite : Boolean = false,
 
-fun AgentsEntity.toFavoriteAgent() : FavoriteAgents =
-    FavoriteAgents(
-        uuid = uuid,
-        displayName = displayName,
-        role = role,
-        description = description,
-        isFavorite = isFavorite,
-    )
+    @ColumnInfo(name = "fullPortrait")
+    val fullPortrait: String,
+
+    @ColumnInfo(name = "background")
+    val background: String,
+)

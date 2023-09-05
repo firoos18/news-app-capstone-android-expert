@@ -72,26 +72,3 @@ data class AgentsItemResponse(
 	@field:SerializedName("developerName")
 	val developerName: String
 )
-
-fun AgentsItemResponse.toAgentEntity() : AgentsEntity =
-	AgentsEntity(
-		uuid = uuid,
-		role = role.displayName,
-		displayName = displayName,
-		description = description,
-		isFavorite = false,
-	)
-
-fun AgentsItemResponse.toAgents() : Agents =
-	Agents(
-		uuid,
-		role,
-		displayName,
-		description,
-		fullPortrait,
-		displayIconSmall,
-		abilities,
-		background,
-		voiceLine,
-		developerName,
-	)

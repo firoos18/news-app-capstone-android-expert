@@ -25,7 +25,7 @@ class AgentsListViewModel (
         article.onEach { result ->
             when(result) {
                 is Resource.Success -> {
-                    _state.value = AgentsListState(news = result.data ?: emptyList())
+                    _state.value = AgentsListState(agents = result.data ?: emptyList())
                 }
                 is Resource.Error -> {
                     _state.value = AgentsListState(error = result.message ?:

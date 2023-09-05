@@ -14,7 +14,7 @@ class RemoteDataSource(private val apiService : ApiService) {
     suspend fun getAllAgents() : Flow<ApiResponse<List<AgentsItemResponse>>> {
         return flow {
             try {
-                val response = apiService.getArticle()
+                val response = apiService.getArticle(isPlayableCharacter = true)
                 val dataArray = response.data
                 if (dataArray.isNotEmpty()) {
                     emit(ApiResponse.Success(response.data))
