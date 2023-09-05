@@ -1,19 +1,19 @@
 package com.example.capstone.core.data.source.local
 
-import com.example.capstone.core.data.source.local.entity.ArticleEntity
-import com.example.capstone.core.data.source.local.room.ArticleDao
+import com.example.capstone.core.data.source.local.entity.AgentsEntity
+import com.example.capstone.core.data.source.local.room.AgentsDao
 import kotlinx.coroutines.flow.Flow
 
-class LocalDataSource(private val articleDao: ArticleDao) {
+class LocalDataSource(private val agentsDao: AgentsDao) {
 
-    fun getAllArticle() : Flow<List<ArticleEntity>> = articleDao.getAllArticle()
+    fun getAllAgents() : Flow<List<AgentsEntity>> = agentsDao.getAllArticle()
 
-    fun getFavoriteArticle() : Flow<List<ArticleEntity>> = articleDao.getFavoriteArticle()
+    fun getFavoriteAgents() : Flow<List<AgentsEntity>> = agentsDao.getFavoriteArticle()
 
-    suspend fun insertArticle(articleList : List<ArticleEntity>) = articleDao.insertArticle(articleList)
+    suspend fun insertAgents(agentList : List<AgentsEntity>) = agentsDao.insertArticle(agentList)
 
-    fun setFavoriteArticle(article : ArticleEntity, newState : Boolean) {
-        article.isFavorite = newState
-        articleDao.updateFavoriteArticle(article)
+    fun setFavoriteAgent(agents : AgentsEntity, newState : Boolean) {
+        agents.isFavorite = newState
+        agentsDao.updateFavoriteArticle(agents)
     }
 }

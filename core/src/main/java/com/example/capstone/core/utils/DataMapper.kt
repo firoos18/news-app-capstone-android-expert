@@ -1,53 +1,48 @@
 package com.example.capstone.core.utils
 
-import com.example.capstone.core.data.source.local.entity.ArticleEntity
-import com.example.capstone.core.data.source.remote.response.ArticlesItemResponse
-import com.example.capstone.core.domain.models.ArticlesItem
+import com.example.capstone.core.data.source.local.entity.AgentsEntity
+import com.example.capstone.core.data.source.remote.response.AgentsItemResponse
+import com.example.capstone.core.data.source.remote.response.Role
+import com.example.capstone.core.data.source.remote.response.VoiceLine
+import com.example.capstone.core.domain.models.Agents
 
 object DataMapper {
-    fun mapResponsesToEntities(input: List<ArticlesItemResponse>): List<ArticleEntity> {
-        val articleList = ArrayList<ArticleEntity>()
+    fun mapResponsesToEntities(input: List<AgentsItemResponse>): List<AgentsEntity> {
+        val agentList = ArrayList<AgentsEntity>()
         input.map {
-            val article = ArticleEntity(
-                title = it.title,
-                author = it.author,
-                description = it.description,
-                content = it.content,
-                publishedAt = it.publishedAt,
-                url = it.url,
-                urlToImage = it.urlToImage,
+            val agent = AgentsEntity(
+                uuid = it.uuid,
+                displayName = it.displayName,
                 isFavorite = false,
-                articleId = 0
+                description = it.description,
+                role = it.role.displayName,
             )
-            articleList.add(article)
+            agentList.add(agent)
         }
-        return articleList
+        return agentList
     }
 
-    fun mapEntitiesToDomain(input: List<ArticleEntity>): List<ArticlesItem> =
+    fun mapEntitiesToDomain(input: List<AgentsEntity>): List<Agents> =
         input.map {
-            ArticlesItem(
-                title = it.title,
-                author = it.author,
+            Agents(
+                uuid = it.uuid,
                 description = it.description,
-                content = it.content,
-                publishedAt = it.publishedAt,
-                url = it.url,
-                urlToImage = it.urlToImage,
-                isFavorite = it.isFavorite,
-                articleId = it.articleId
+                role = Role(displayIcon = "", displayName = it.role, assetPath = "", uuid = "", description = ""),
+                displayName = it.displayName,
+                abilities = emptyList(),
+                voiceLine = VoiceLine(minDuration = 0f, maxDuration = 0f, mediaList = emptyList()),
+                background = "",
+                developerName = "",
+                displayIconSmall = "",
+                fullPortrait = ""
             )
         }
 
-    fun mapDomainToEntity(input: ArticlesItem) = ArticleEntity(
-        title = input.title,
-        author = input.author,
+    fun mapDomainToEntity(input: Agents) = AgentsEntity(
+        uuid = input.uuid,
         description = input.description,
-        content = input.content,
-        publishedAt = input.publishedAt,
-        url = input.url,
-        urlToImage = input.urlToImage,
-        isFavorite = input.isFavorite,
-        articleId = input.articleId
+        displayName = input.displayName,
+        role = input.role.displayName,
+        isFavorite = false,
     )
 }

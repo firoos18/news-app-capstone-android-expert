@@ -1,12 +1,12 @@
 package com.example.capstone.core.di
 
 import androidx.room.Room
-import com.example.capstone.core.data.source.ArticleRepositoryImpl
+import com.example.capstone.core.data.source.AgentRepositoryImpl
 import com.example.capstone.core.data.source.local.LocalDataSource
-import com.example.capstone.core.data.source.local.room.ArticleDatabase
+import com.example.capstone.core.data.source.local.room.AgentDatabase
 import com.example.capstone.core.data.source.remote.RemoteDataSource
 import com.example.capstone.core.data.source.remote.network.ApiService
-import com.example.capstone.core.domain.repository.ArticleRepository
+import com.example.capstone.core.domain.repository.AgentRepository
 import com.example.capstone.core.utils.AppExecutors
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,12 +17,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 val databaseModule = module {
-    factory { get<ArticleDatabase>().articleDao() }
+    factory { get<AgentDatabase>().agentDao() }
     single {
         Room.databaseBuilder(
             androidContext(),
             ArticleDatabase::class.java,
-            "Article.db"
+            "Agent.db"
         ).fallbackToDestructiveMigration().build()
     }
 }
@@ -37,7 +37,7 @@ val networkModule = module {
     }
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://newsapi.org/v2/")
+            .baseUrl("https://valorant-api.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()
@@ -49,7 +49,7 @@ val repositoryModule = module {
     single { LocalDataSource(get()) }
     single { RemoteDataSource(get()) }
     factory { AppExecutors() }
-    single<ArticleRepository> {
-        ArticleRepositoryImpl(get(), get(), get())
+    single<AgentRepository> {
+        AgentRepositoryImpl(get(), get(), get())
     }
 }
