@@ -15,7 +15,7 @@ object DataMapper {
                 displayName = it.displayName,
                 isFavorite = false,
                 description = it.description,
-                role = it.role.displayName,
+                role = "",
             )
             agentList.add(agent)
         }
