@@ -12,4 +12,5 @@ class AgentInteractor(private val agentRepository: AgentRepository) : AgentUseCa
 
     override fun setFavoriteAgent(agent: Agents, state: Boolean) = agentRepository.setFavoriteAgent(agent, state)
 
+    override fun getAgentById(uuid: String): Flow<Agents> = agentRepository.getAgentById(uuid)
 }

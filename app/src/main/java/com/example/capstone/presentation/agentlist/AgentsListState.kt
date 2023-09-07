@@ -1,4 +1,4 @@
-package com.example.capstone.presentation
+package com.example.capstone.presentation.agentlist
 
 import com.example.capstone.core.domain.models.Agents
 

@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName
 data class VoiceLine(
 
 	@field:SerializedName("minDuration")
-	val minDuration: Float,
+	val minDuration: Any,
 
 	@field:SerializedName("mediaList")
 	val mediaList: List<MediaListItem>,
 
 	@field:SerializedName("maxDuration")
-	val maxDuration: Float
+	val maxDuration: Any
 )

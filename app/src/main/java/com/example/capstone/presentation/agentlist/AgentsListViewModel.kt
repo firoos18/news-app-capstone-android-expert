@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.capstone.core.data.source.Resource
 import com.example.capstone.core.domain.usecases.AgentUseCase
-import com.example.capstone.presentation.AgentsListState
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 

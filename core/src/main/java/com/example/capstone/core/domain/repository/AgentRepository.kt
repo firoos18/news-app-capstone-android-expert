@@ -12,4 +12,6 @@ interface AgentRepository {
 
     fun setFavoriteAgent(agents: Agents, state : Boolean)
 
+    fun getAgentById(uuid : String) : Flow<Agents>
+
 }

@@ -8,4 +8,5 @@ interface AgentUseCase {
     fun getAllAgents() : Flow<Resource<List<Agents>>>
     fun getFavoriteAgents() : Flow<List<Agents>>
     fun setFavoriteAgent(agent: Agents, state : Boolean)
+    fun getAgentById(uuid : String) : Flow<Agents>
 }

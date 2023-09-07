@@ -21,4 +21,7 @@ interface AgentsDao {
 
     @Update
     fun updateFavoriteArticle(article : AgentsEntity)
+
+    @Query("SELECT * FROM agent WHERE uuid = :uuid")
+    fun getAgentById(uuid : String) : Flow<AgentsEntity>
 }

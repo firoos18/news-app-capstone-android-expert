@@ -14,7 +14,7 @@ class RemoteDataSource(private val apiService : ApiService) {
     suspend fun getAllAgents() : Flow<ApiResponse<List<AgentsItemResponse>>> {
         return flow {
             try {
-                val response = apiService.getArticle(isPlayableCharacter = true)
+                val response = apiService.getAgents(isPlayableCharacter = true)
                 val dataArray = response.data
                 if (dataArray.isNotEmpty()) {
                     emit(ApiResponse.Success(response.data))
@@ -23,7 +23,7 @@ class RemoteDataSource(private val apiService : ApiService) {
                 }
             } catch (e : Exception) {
                 emit(ApiResponse.Error(e.toString()))
-                Log.e("RemoteDataSource", e.message.toString())
+                Log.e("RemoteDataSource-ListAgents", e.message.toString())
             }
         }.flowOn(Dispatchers.IO)
     }

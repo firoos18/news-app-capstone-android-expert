@@ -1,11 +1,11 @@
 package com.example.capstone.core.data.source
 
+import android.util.Log
 import com.example.capstone.core.data.source.local.LocalDataSource
 import com.example.capstone.core.data.source.remote.RemoteDataSource
 import com.example.capstone.core.data.source.remote.network.ApiResponse
 import com.example.capstone.core.data.source.remote.response.AgentsItemResponse
 import com.example.capstone.core.domain.models.Agents
-import com.example.capstone.core.domain.models.FavoriteAgents
 import com.example.capstone.core.domain.repository.AgentRepository
 import com.example.capstone.core.utils.AppExecutors
 import com.example.capstone.core.utils.DataMapper
@@ -26,7 +26,8 @@ class AgentRepositoryImpl(
             }
 
             override fun shouldFetch(data: List<Agents>?): Boolean =
-                true
+                data == null || data.isEmpty()
+//                true
 
             override suspend fun createCall(): Flow<ApiResponse<List<AgentsItemResponse>>> =
                 remoteDataSource.getAllAgents()
@@ -49,4 +50,12 @@ class AgentRepositoryImpl(
         val agentsEntity = DataMapper.mapDomainToEntity(agents)
         appExecutors.diskIO().execute{ localDataSource.setFavoriteAgent(agentsEntity, state) }
     }
+
+    override fun getAgentById(uuid: String): Flow<Agents> {
+        return localDataSource.getAgentById(uuid).map {
+            Log.d("NameFromRepoImpl", it.displayName)
+            DataMapper.mapEntityToDomain(it)
+        }
+    }
+
 }

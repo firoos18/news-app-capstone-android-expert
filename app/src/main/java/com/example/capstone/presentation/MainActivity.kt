@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.capstone.presentation.agentlist.AgentListScreen
+import com.example.capstone.presentation.agentdetail.AgentDetailScreen
 import com.example.capstone.presentation.ui.theme.CapstoneTheme
 
 class MainActivity : ComponentActivity() {
@@ -32,6 +33,11 @@ class MainActivity : ComponentActivity() {
                             route = Screen.AgentListScreen.route
                         ) {
                             AgentListScreen(navController = navController)
+                        }
+                        composable(
+                            route = Screen.AgentDetailScreen.route + "/{agentUuid}"
+                        ) {
+                            AgentDetailScreen()
                         }
                     }
                 }

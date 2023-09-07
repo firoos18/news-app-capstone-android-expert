@@ -16,4 +16,6 @@ class LocalDataSource(private val agentsDao: AgentsDao) {
         agents.isFavorite = newState
         agentsDao.updateFavoriteArticle(agents)
     }
+
+    fun getAgentById(uuid : String) = agentsDao.getAgentById(uuid)
 }
