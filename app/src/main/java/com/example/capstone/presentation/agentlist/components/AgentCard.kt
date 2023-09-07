@@ -34,6 +34,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.capstone.core.domain.models.Agents
 import com.example.capstone.presentation.Screen
+import com.example.capstone.presentation.ui.theme.valorant
 import java.util.Locale
 
 @Composable
@@ -56,11 +57,13 @@ fun AgentCard(
            ) {
                Text(
                    text = agents.displayName.uppercase(),
-                   fontSize = 42.sp,
+                   fontSize = 24.sp,
                    fontWeight = FontWeight.Bold,
+                   fontFamily = valorant
                )
                Spacer(modifier = Modifier.height(4.dp))
                AsyncImage(
+                   modifier = Modifier.size(24.dp),
                    model = agents.roleDisplayIcon,
                    contentDescription = "AgentRoleDisplayIcon"
                )

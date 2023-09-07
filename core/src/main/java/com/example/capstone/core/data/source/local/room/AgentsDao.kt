@@ -11,16 +11,16 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AgentsDao {
     @Query("SELECT * FROM agent")
-    fun getAllArticle() : Flow<List<AgentsEntity>>
+    fun getAllAgents() : Flow<List<AgentsEntity>>
 
     @Query("SELECT * FROM agent WHERE isFavorite = 1")
-    fun getFavoriteArticle() : Flow<List<AgentsEntity>>
+    fun getFavoriteAgents() : Flow<List<AgentsEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertArticle(article : List<AgentsEntity>)
+    suspend fun insertAgent(article : List<AgentsEntity>)
 
     @Update
-    fun updateFavoriteArticle(article : AgentsEntity)
+    fun updateFavoriteAgent(article : AgentsEntity)
 
     @Query("SELECT * FROM agent WHERE uuid = :uuid")
     fun getAgentById(uuid : String) : Flow<AgentsEntity>

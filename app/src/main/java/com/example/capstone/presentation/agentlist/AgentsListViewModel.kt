@@ -15,6 +15,9 @@ class AgentsListViewModel (
     private val _state = mutableStateOf(AgentsListState())
     val state : State<AgentsListState> get() = _state
 
+    private val _favoriteState = mutableStateOf(AgentsListState())
+    val favoriteState : State<AgentsListState> get() = _favoriteState
+
     init {
         getAllArticles()
     }
