@@ -8,6 +8,9 @@ import com.example.capstone.core.data.source.remote.RemoteDataSource
 import com.example.capstone.core.data.source.remote.network.ApiService
 import com.example.capstone.core.domain.repository.AgentRepository
 import com.example.capstone.core.utils.AppExecutors
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -19,20 +22,31 @@ import java.util.concurrent.TimeUnit
 val databaseModule = module {
     factory { get<AgentDatabase>().agentDao() }
     single {
+        val passphrase : ByteArray = SQLiteDatabase.getBytes("capstone".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             AgentDatabase::class.java,
             "Agent.db"
-        ).fallbackToDestructiveMigration().build()
+        ).fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
+            .build()
     }
 }
 
 val networkModule = module {
     single {
+        val hostname = "valorant-api.com"
+        val certificatePinner = CertificatePinner.Builder()
+            .add(hostname, "sha256/81Wf12bcLlFHQAfJluxnzZ6Frg+oJ9PWY/Wrwur8viQ=")
+            .add(hostname, "sha256/hxqRlPTu1bMS/0DITB1SSu0vd4u/8l8TjPgfaAp63Gc=")
+            .add(hostname, "sha256/qrCJ+v05fGIiGr+ojQXfXCCVi8Qb0o1qPrxOt0Sd/HY=")
+            .build()
         OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
+            .certificatePinner(certificatePinner)
             .build()
     }
     single {
