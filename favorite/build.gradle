@@ -17,6 +17,7 @@ android {
         applicationId "com.example.capstone"
         minSdk 24
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     buildTypes {
