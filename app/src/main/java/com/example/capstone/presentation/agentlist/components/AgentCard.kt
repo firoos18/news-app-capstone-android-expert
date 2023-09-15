@@ -39,7 +39,6 @@ import java.util.Locale
 
 @Composable
 fun AgentCard(
-    modifier : Modifier = Modifier,
     agents: Agents,
     onItemClick : (Agents) -> Unit,
 ) {
